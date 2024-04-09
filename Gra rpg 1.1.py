@@ -181,7 +181,7 @@ class Bar:
             print("2. Poproś o kufel piwa (4 złota)")
             print("3. Kup dziewczynie drinka (10 złota) *in progress*")
             print("4. Zagadaj do krasnoluda przy blacie (godność)")
-            print("5. Weź flaszkę na wynos (6 złota)")
+            print("5. Kup miksturę leczenia (6 złota)")
             print("6. Opuść Kosmopizzę")
 
             choice = input("Wpisz wybór: ")
@@ -207,7 +207,10 @@ class Bar:
                 else:
                     print("Nie stać cię! \nbiedaku")
             elif choice == '3':
-                print()
+                if "Złoto" in self.player.inventory and self.player.inventory["Złoto"] >= 10:
+                    print("Kupiłeś jakiejś dziewczynie drinka lecz jak do niej zagadałeś to wstała i uciekła od ciebie. \n-1hp ")
+                    self.player.health -= 1
+                    self.player.inventory["Złoto"] -= 10
             elif choice == '4':
                 if self.player.alcoholism >= 73 and self.rocknstone:
                     print("Krasnolud w ostatnich minutach swego życia podał ci namiary na swój skarb. \nKoroner oznajmił śmierć z zatrucia alkoholowego, \nA stan twojego portfela znaczne zadowolenie.")
@@ -253,12 +256,6 @@ class Bar:
 class Game:
     def __init__(self):
         self.player = None
-        self.enemies = [
-            Enemy(name="Szkielet Orka", health=50, attack=15, defense=5, experience=25, loot=["Złoto", "Mikstura leczenia"]),
-            Enemy(name="Gromada szczórów ze wścieklizną", health=70, attack=10, defense=8, experience=30, loot=["Miecz", "Zbroja"]),
-            Enemy(name="Król Michał Korybut Wiśniowiecki ", health=100, attack=20, defense=15, experience=50, loot=["Legendarny miecz"]),
-            Enemy(name="Jedno oki Goblin zwny Joe", health=40, attack=12, defense=3, experience=20, loot=["Złoto"])
-        ]
         self.shop = None
         self.bar = None
 
@@ -276,7 +273,7 @@ class Game:
     def explore(self):
         print("\nWchodzisz do lasu...")
         time.sleep(1)
-        enemy = random.choice(self.enemies)
+        enemy = random.choice(all_enemies)
         print(f"Atakuje cie {enemy.name} !")
 
         if battle(self.player, enemy):
@@ -286,7 +283,7 @@ class Game:
             self.player.level_up()
             self.player.inventory["Złoto"] += newgold
             enemy.drop_loot()
-            time.sleep(1)
+            time.sleep(2)
 
     def run_game(self):
         self.print_welcome()
@@ -300,7 +297,7 @@ class Game:
             print("4. Użyj mikstury leczenia")
             print("5. Odpocznij")
             print("6. Dance")
-            print("7.Wejdź do baru")
+            print("7. Wejdź do baru")
             print("8. Wyjdź z gry")
 
             choice = input("Wpisz wybór: ")
