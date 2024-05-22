@@ -6,7 +6,7 @@ class Character:
         self.health = health
         self.attack = attack
         self.defense = defense
-        self.inventory = {"Złoto": 10, "Mikstura leczenia": 0, "Miecz": 0, "Zbroja": 0, "Flaszki":0 }
+        self.inventory = {"Złoto": 10, "Mikstura leczenia": 1, "Miecz": 0, "Zbroja": 0, "Flaszki":0 }
 
     def is_alive(self):
         return self.health > 0
