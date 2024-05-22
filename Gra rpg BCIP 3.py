@@ -260,21 +260,52 @@ class Game:
         self.bar = None
 
     def print_welcome(self):
-        print("Witaj w grze RPG!")
-        time.sleep(1)
+        print("""Witaj w grze RPG! O nazwie
+              
+
+  ______            _____ _______         _____    _____    _____
+ |  __  \    /\    / ____|__   __| /\    |  __ \  |  __ \  / ____|
+ | |__| /   /  \  | (___    | |   /  \   | |__) | | |  | || (___ 
+ |  __ |   / /\ \  \___ \   | |  / /\ \  |  _  /  | |  | | \___ \ 
+ | |__| \ / ____ \ ____) |  | | / ____ \ | | \ \  | |__| | ____) |
+ |______//_/    \_\_____/   |_|/_/    \_\|_|  \_\ |_____/ \_____/ 
+              
+
+               ____ ____   _______ _    _ _____ 
+              | __ |  __| |__   __| |  | | ____|
+              ||  || |__     | |  | |__| | |__
+              ||  ||  __|    | |  |  __  | ___|
+              ||__|| |       | |  | |  | | |___
+              |____|_|       |_|  |_|  |_|_____|
+
+
+      _____   _____   _  __      __   _____   _______  _   _
+     /   __\ |  __ \ | ||  \    /  | / ____| /  ___  \| \ | |
+    /  /     | |__) || ||   \  /   || (___  |  |   |  |  \| |
+    |  |     |  _  / | || |\ \/ /| | \___ \ |  |   |  | . ` |
+    \  \____ | | \ \ | || | \  / | | ____) ||  |___|  | |\  |
+     \_____/ |_|  \_\|_||_|  \/  |_|\_____/  \_______/|_| \_| 
+ _  _   _  _____ ______  _____   _   _  _______      _____  _  _______
+| || \ | ||  ___| _____||  __ \ | \ | |/  ___  \    |  __ \| ||__   __|
+| ||  \| || |__ | |___  | |__) ||  \| |  |   |  |   | |__) | |   | |
+| || . ` ||  __|| ____| |  _  / | . ` |  |   |  |   |  ___/| |   | |
+| || |\  || |   | |____ | | \ \ | |\  |  |___|  |   | |    | |   | |
+|_||_| \_||_|   |______||_|  \_\|_| \_|\_______/    |_|    |_|   |_|
+
+                                                                 """)
+        time.sleep(2)
         print("Twoja przygoda zaraz się zacznie...")
         time.sleep(1)
 
     def create_player(self):
         player_name = input("Nazwa postaci: ")
-        self.player = Player(name=player_name, health=100, attack=20, defense=10)
+        self.player = Player(name=player_name, health=100, attack=25, defense=20)
         self.shop = Shop(self.player)
         self.bar = Bar(self.player)
     def explore(self):
         print("\nWchodzisz do lasu...")
         time.sleep(1)
         enemy = random.choice(all_enemies)
-        print(f"Atakuje cie {enemy.name} !")
 
         if battle(self.player, enemy):
             newgold = enemy.experience//random.randrange(2,10)
@@ -298,7 +329,7 @@ class Game:
             print("5. Odpocznij")
             print("6. Dance")
             print("7. Wejdź do baru")
-            print("8. Wyjdź z gry")
+            print("q. Wyjdź z gry")
 
             choice = input("Wpisz wybór: ")
 
@@ -316,7 +347,7 @@ class Game:
                 self.player.dance()
             elif choice == "7":
                 self.bar.enter_bar()
-            elif choice == '8':
+            elif choice == 'q':
             
                 print("Opuszczasz grę...")
                 break
